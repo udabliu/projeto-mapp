@@ -28,6 +28,6 @@ class Pessoa extends Model implements AuthenticatableContract, AuthorizableContr
      * @var array
      */
     protected $hidden = [
-        'senha',
+        'senha'
     ];
 }

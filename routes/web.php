@@ -19,6 +19,12 @@ $router->get('/', function () use ($router) {
 
 $router->post('/pessoa/cadastrar','PessoaController@cadastrarPessoa');
 
-$router->post('pessoa/login', 'AuthController@login');
+$router->post('/pessoa/login', 'AuthController@login');
+
+
+
+
+
+
 
 

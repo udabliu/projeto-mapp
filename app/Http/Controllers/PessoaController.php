@@ -22,7 +22,6 @@ class PessoaController extends Controller
 
     public function cadastrarPessoa(Request $request){
         
-        //validator da forma que o chatgpt passou
         $validator = Validator::make($request->all(), [
             'nome' => 'required|min:5|max:40',
             'email' => 'required|email|unique:pessoas,email',
@@ -43,18 +42,16 @@ class PessoaController extends Controller
         }
    
     }
-    public function login(Request $request)
+
+
+    public function receberDados(Request $request)
     {
-        $credentials = $request->only('nome', 'senha');
-
-        // Faça a validação dos campos, se necessário
-
-        if (auth()->attempt($credentials)) {
-            return response()->json(['message' => 'Login com sucesso!']);
-        } else {
-            return response()->json(['message' => 'Falha ao logar'], 401);
-        }
+        $dados = $request->all();
+        // Faça o processamento necessário dos dados recebidos
+    
+        return response()->json(['mensagem' => 'Dados recebidos com sucesso']);
     }
+    
 }
 
 
