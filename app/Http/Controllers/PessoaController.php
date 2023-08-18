@@ -20,33 +20,29 @@ class PessoaController extends Controller
         //
     }
 
-    public function cadastrarPessoa(Request $request){
+    public function cadastrarPessoa(Request $request)
+    {
         $validator = Validator::make($request->all(), [
-            'nome' => 'required|min:5|max:40',
+            'nome' => 'required|max:40',
             'email' => 'required|email|unique:pessoas,email',
             'senha' => 'required|min:5'
         ]);
 
         if ($validator->fails()) {
+            //** essa mensagem é mostrada apenas no postman e nao como algo visual no front */
             return response()->json(['Erro de Validação dos dados' => $validator->errors()], 400);
-        }else{
-        $pessoa = new Pessoa;
-        $pessoa->nome = $request->nome;
-        $pessoa->email = $request->email;
-        $pessoa->senha = $request->senha;
-        $pessoa->telefone = $request->telefone;
+        } else {
+            $pessoa = new Pessoa;
+            $pessoa->nome = $request->nome;
+            $pessoa->email = $request->email;
+            $pessoa->senha = $request->senha;
+            $pessoa->telefone = $request->telefone;
 
-        $pessoa->save();
-        return response()->json("Usuário Cadastrado com Sucesso");
+            $pessoa->save();
+            return response()->json("Usuário Cadastrado com Sucesso");
         }
-   
     }
-
-
-    
-    
 }
 
 
     //
-
