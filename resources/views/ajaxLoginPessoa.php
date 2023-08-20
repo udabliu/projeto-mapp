@@ -1,7 +1,10 @@
 <?php
 session_start();
 
-if ($_SERVER["REQUEST_METHOD"] == "GET") {
+echo "Email:  " . $_SESSION["email"];
+echo "Senha: <br>" . $_SESSION["senha"];
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = $_POST['email'];
     $senha = $_POST['senha'];
 
@@ -23,17 +26,30 @@ if ($_SERVER["REQUEST_METHOD"] == "GET") {
     ));
 
     $response = curl_exec($curl);
+    $httpCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+
 
     curl_close($curl);
-    echo $response;
 
-    // Verifique a resposta do servidor de autenticação
-    if ($response === "Autenticação bem-sucedida") {
+    
+    if ($httpCode == 200) {
       $_SESSION["email"] = $email;
       $_SESSION["senha"] = $senha;
-      echo "Login bem-sucedido! Redirecionando...";
-    } else {
-      echo "Credenciais inválidas.";
-    }
-}
-?>
+      $msgSucess = "Usuário logado com sucesso!";
+      ?>
+  <div class="alert alert-success">
+    <?php print_r($msgSucess); ?>
+  </div>
+  
+  <?php
+  } else {
+    $msgError = "Erro ao logar";
+  ?>
+  <div class="alert alert-danger">
+    <?php print_r($msgError); ?>
+  </div>
+  <?php
+
+  }}
+  ?>
+  

@@ -54,7 +54,7 @@
                         "senha": senha
                     },
                     success: function(result) {
-                        $("#alert").removeClass("alert-danger").addClass("alert-success").html("login realizado com sucesso!");       
+                        $("#alert").html(result);  
                     },                   
                 });
             });

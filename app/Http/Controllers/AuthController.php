@@ -20,7 +20,7 @@ class AuthController extends Controller
         $userBd = Pessoa::select('id')->where('email', $email)->where('senha', $senha)->get()->first();
 
         if ($userBd) {
-            return response()->json(['Usuário logado com sucesso!'], 200);
+            return response()->json(['Usuário logado com sucesso!'.$userBd], 200);
         
         } else {
             return response()->json(['message' => 'Erro ao fazer login, usuário ou senha inválidos'], 404);

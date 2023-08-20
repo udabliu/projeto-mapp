@@ -79,6 +79,8 @@
 
                     success: function(result) {
                         $("#alert").html(result);
+                        window.location.href = "login.php";
+
                     },
 
 

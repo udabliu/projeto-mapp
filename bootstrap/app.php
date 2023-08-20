@@ -71,6 +71,10 @@ $app->configure('app');
 | route or middleware that'll be assigned to some specific routes.
 |
 */
+$app->middleware([
+    Illuminate\Session\Middleware\StartSession::class,
+]);
+
 
 // $app->middleware([
 //     App\Http\Middleware\ExampleMiddleware::class
