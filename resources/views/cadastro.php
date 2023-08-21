@@ -11,7 +11,6 @@
         <h2>Cadastro de Usuário</h2>
     </div>
     <div>
-        <a href="login.php">Faça Login</a>
         <div class="w-100 d-flex justify-content-center align-items-center flex-column">
             <div class="mb-3 w-25">
                 <label for="exampleInputEmail1" class="form-label">Nome:</label>
@@ -28,6 +27,9 @@
             <div class="mb-3 w-25">
                 <label for="exampleInputPassword1" class="form-label">Senha:</label>
                 <input type="password" class="form-control" id="senha" name="senha">
+            </div>
+            <div class="d-flex justify-content-center p-3">
+            <a href="login.php">Já possui cadastro? Clique Aqui para fazer login</a>
             </div>
 
             <button id="btn-cadastrar" class="btn btn-primary">Cadastrar</button>
@@ -79,11 +81,7 @@
 
                     success: function(result) {
                         $("#alert").html(result);
-                        window.location.href = "login.php";
-
                     },
-
-
                 });
             });
         });

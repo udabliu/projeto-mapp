@@ -9,7 +9,6 @@
         <h2>Login</h2>
     </div>
     <div>
-        <a href="cadastro.php">Cadastre-se Aqui</a>
         <div class="w-100 d-flex justify-content-center align-items-center flex-column">
             <div class="mb-3 w-25">
                 <label for="exampleInputEmail1" class="form-label">Email:</label>
@@ -19,6 +18,10 @@
             <div class="mb-3 w-25">
                 <label for="exampleInputPassword1" class="form-label">Senha:</label>
                 <input type="password" class="form-control" id="senha" name="senha">
+            </div>
+            <div class="d-flex justify-content-center p-3">
+            <a href="cadastro.php">
+                Ainda não possui cadastro? Cadastre-se Aqui</a>
             </div>
 
             <button id="btn-login" class="btn btn-primary">Entrar</button>

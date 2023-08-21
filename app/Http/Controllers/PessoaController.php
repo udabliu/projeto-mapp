@@ -19,7 +19,6 @@ class PessoaController extends Controller
     {
         //
     }
-
     public function cadastrarPessoa(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -29,7 +28,6 @@ class PessoaController extends Controller
         ]);
 
         if ($validator->fails()) {
-            //** essa mensagem é mostrada apenas no postman e nao como algo visual no front */
             return response()->json(['Erro de Validação dos dados' => $validator->errors()], 400);
         } else {
             $pessoa = new Pessoa;
@@ -41,6 +39,31 @@ class PessoaController extends Controller
             $pessoa->save();
             return response()->json("Usuário Cadastrado com Sucesso");
         }
+    }
+    //-------------------------------------------------------------------------------------------------------
+    public function mostrar()
+    {
+        $pessoas = Pessoa::all();
+        return response()->json($pessoas);
+    }
+
+//-----------------------------------------------------------------------------------------------------------
+    public function deletar($id)
+    {
+        $pessoa = Pessoa::find($id);
+
+        if ($pessoa) {
+            $pessoa->delete();
+
+            return response()->json("deletado com sucesso", 200);
+        }
+
+        else {
+            return response()->json("Erro ao Deletar");
+        }
+
+
+
     }
 }
 

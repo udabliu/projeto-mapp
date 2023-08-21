@@ -21,6 +21,14 @@ $router->post('/pessoa/cadastrar','PessoaController@cadastrarPessoa');
 
 $router->post('/pessoa/login', 'AuthController@login');
 
+$router->get('/pessoa/mostrar', 'PessoaController@mostrar');
+
+$router->delete('/pessoa/{id}/deletar', 'PessoaController@deletar');
+
+$router->put('/pessoa/{id}/editar', 'PessoaController@editar');
+
+
+
 
 
 
