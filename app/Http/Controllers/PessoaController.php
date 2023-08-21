@@ -47,7 +47,7 @@ class PessoaController extends Controller
         return response()->json($pessoas);
     }
 
-//-----------------------------------------------------------------------------------------------------------
+    //-----------------------------------------------------------------------------------------------------------
     public function deletar($id)
     {
         $pessoa = Pessoa::find($id);
@@ -56,14 +56,21 @@ class PessoaController extends Controller
             $pessoa->delete();
 
             return response()->json("deletado com sucesso", 200);
-        }
-
-        else {
+        } else {
             return response()->json("Erro ao Deletar");
         }
+    }
+//----------------------------------------------------------------------
+    public function editar(Request $request, $id)
+    {
+        $pessoa = Pessoa::find($id);
+        $pessoa->nome = $request->nome;
+        $pessoa->email = $request->email;
+        $pessoa->senha = $request->senha;
+        $pessoa->telefone = $request->telefone;
 
-
-
+        $pessoa->save();
+        return response()->json("Dado(s) atualizado(s) com Sucesso" . $pessoa);
     }
 }
 
