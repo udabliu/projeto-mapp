@@ -26,13 +26,13 @@ if ($httpCode == 200) {
 ?>
   <div>
     <?php foreach ($pessoas as $pessoa) : ?>
-      <ul class="list-group p-4">
+      <ul class="list-group p-5">
         <li class="list-group-item d-flex justify-content-center"><?php print_r($pessoa["id"]); ?></li>
         <li class="list-group-item d-flex justify-content-center"><?php print_r($pessoa["nome"]); ?></li>
         <li class="list-group-item d-flex justify-content-center"><?php print_r($pessoa["email"]); ?></li>
-        <li class="list-group-item d-flex justify-content-left">
-          <button class="btn-delete" data-id="<?php echo $pessoa["id"]; ?>">Deletar</button>
-          <button class="btn-edit" data-id="<?php echo $pessoa["id"]; ?>">Editar</button>
+        <li class="list-group-item d-flex justify-content-around">
+          <button class="btn-delete btn btn-danger" data-id="<?php echo $pessoa["id"]; ?>">Deletar</button>
+          <button class="btn-edit btn btn-warning" data-id="<?php echo $pessoa["id"]; ?>">Editar</button>
         </li>
   </div>
   </ul>
@@ -88,20 +88,16 @@ if ($httpCode == 200) {
   $(document).ready(function() {
     $('.btn-edit').on('click', function() {
       var pessoaId = $(this).data('id');
-        $.ajax({
-          url: 'ajaxObterDadosPessoa.php?pessoaId=' + pessoaId,
-          type: 'GET',
-          success: function(result) {
-            $("#mostrar").html(result);
-          }
-        })
-      });
-    })
-
+      $.ajax({
+        url: 'ajaxObterDadosPessoa.php?pessoaId=' + pessoaId,
+        type: 'GET',
+        success: function(result) {
+          $("#mostrar").html(result);
+        }
+      })
+    });
+  })
 </script>
-
-
-
 <?php
 } else {
   $msgError = "Erro ao Carregar Dados";

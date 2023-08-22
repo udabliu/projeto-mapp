@@ -20,19 +20,19 @@ $dados = json_decode($dadosJson, true); // Decodifica o JSON para um array assoc
 curl_close($curl);
 ?>
 
-<div>
+<div class="form-control d-flex flex-column">
   <input type="hidden" name="pessoaId" id="id" value="<?php echo $id; ?>">
   <label for="">Nome</label>
-  <input type="text" name="nome" id="nome" value="<?php echo $dados['nome']; ?>">
+  <input class="form-control" type="text" name="nome" id="nome" value="<?php echo $dados['nome']; ?>">
   <label for="">Senha</label>
-  <input type="password" name="senha" id="senha">
+  <input class="form-control" type="password" name="senha" id="senha">
   <label for="">Telefone</label>
-  <input type="number" name="telefone" id="telefone" value="<?php echo $dados['telefone']; ?>">
-  <button id="btn-atualizar">Atualizar</button>
+  <input class="form-control" type="number" name="telefone" id="telefone" value="<?php echo $dados['telefone']; ?>">
+  <button class="btn btn-primary m-3" id="btn-atualizar">Atualizar</button>
 </div>
 <script>
   $('#btn-atualizar').click(function() {
-    var id = $('#id').val(); 
+    var id = $('#id').val();
     var nome = $('#nome').val();
     var telefone = $('#telefone').val();
     var senha = $('#senha').val();
@@ -48,7 +48,13 @@ curl_close($curl);
       },
       success: function(result) {
         $("#mostrar").html(result);
+
+        if (result.includes("Dados Alterados com Sucesso!")) {
+          setTimeout(function() {
+            window.location.href = 'logado.php';
+          }, 1000);
+        }
       }
-    });
+    })
   });
 </script>

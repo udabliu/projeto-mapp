@@ -10,10 +10,13 @@
     </div>
     <div class="d-flex justify-content-center text-center">
         <div class="p-3">
-            <a href="cadastro.php">Cadastro</a>
+            <a class="btn btn-primary" href="cadastro.php">Cadastro</a>
         </div>
         <div class="p-3">
-            <a href="login.php">Login</a>
+            <a class="btn btn-primary" href="login.php">Login</a>
+        </div>
+        <div class="p-3">
+            <a class="btn btn-primary" href="logado.php">Home</a>
         </div>
 
     </div>

@@ -79,11 +79,7 @@
                     },
 
                     success: function(result) {
-                        $('#alert').html(`
-                            ${spinner}
-                            
-    <p class="text-success">Carregando... Aguarde um momento.</p>`
-                        );
+                        $("#alert").html(result);
                         if (result.includes("Usuário cadastrado com sucesso! Redirecionando...")) {
                             setTimeout(function() {
                                 window.location.href = 'login.php';

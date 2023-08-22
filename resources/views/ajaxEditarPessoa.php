@@ -28,17 +28,17 @@ $httpCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
 curl_close($curl);
 
 if ($httpCode == 200) {
-
+$msgSuccess = "Dados Alterados com Sucesso!"
 ?>
   <div class="alert alert-success">
-    <?php print_r($response); ?>
+    <?php print_r($msgSuccess); ?>
   </div>
 <?php
 } else {
   $msgError = "Erro ao Alterar os Dados.";
 ?>
   <div class="alert alert-danger">
-    <?php print_r($response);
+    <?php print_r($msgError);
     ?>
   </div>
 <?php
