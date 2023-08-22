@@ -1,9 +1,9 @@
 <?php
-$id = $_GET['pessoaId'];
+$id = $_POST['id'];
 $nome = $_POST['nome'];
-$email = $_POST['email'];
 $senha = $_POST['senha'];
 $telefone = $_POST['telefone'];
+
 
 $curl = curl_init();
 
@@ -16,7 +16,7 @@ curl_setopt_array($curl, array(
   CURLOPT_FOLLOWLOCATION => true,
   CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
   CURLOPT_CUSTOMREQUEST => 'PUT',
-  CURLOPT_POSTFIELDS => "nome=$nome&email=$email&senha=$senha&telefone=$telefone",
+  CURLOPT_POSTFIELDS => "nome=$nome&senha=$senha&telefone=$telefone",
   CURLOPT_HTTPHEADER => array(
     'Content-Type: application/x-www-form-urlencoded'
   ),
@@ -28,18 +28,17 @@ $httpCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
 curl_close($curl);
 
 if ($httpCode == 200) {
-  $msgSuccess = "teste sucesso";
 
 ?>
   <div class="alert alert-success">
-    <?php print_r($msgSuccess); ?>
+    <?php print_r($response); ?>
   </div>
 <?php
 } else {
-  $msgError = "teste erro";
+  $msgError = "Erro ao Alterar os Dados.";
 ?>
   <div class="alert alert-danger">
-    <?php print_r($msgError);
+    <?php print_r($response);
     ?>
   </div>
 <?php

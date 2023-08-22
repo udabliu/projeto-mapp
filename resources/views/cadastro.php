@@ -5,7 +5,7 @@
 </head>
 
 <body>
-
+<script src="./js/scripts.js"></script>
 
     <div class="d-flex justify-content-center p-5">
         <h2>Cadastro de Usuário</h2>
@@ -13,11 +13,11 @@
     <div>
         <div class="w-100 d-flex justify-content-center align-items-center flex-column">
             <div class="mb-3 w-25">
-                <label for="exampleInputEmail1" class="form-label">Nome:</label>
+                <label for="exampleInputEmail1" class="form-label">Nome*:</label>
                 <input type="text" class="form-control" id="nome" name="nome" aria-describedby="emailHelp">
             </div>
             <div class="mb-3 w-25">
-                <label for="exampleInputEmail1" class="form-label">Email:</label>
+                <label for="exampleInputEmail1" class="form-label">Email*:</label>
                 <input type="email" class="form-control" id="email" name="email" aria-describedby="emailHelp">
             </div>
             <div class="mb-3 w-25">
@@ -25,11 +25,11 @@
                 <input type="number" class="form-control" id="telefone" maxlength="11" aria-describedby="emailHelp">
             </div>
             <div class="mb-3 w-25">
-                <label for="exampleInputPassword1" class="form-label">Senha:</label>
+                <label for="exampleInputPassword1" class="form-label">Senha*:</label>
                 <input type="password" class="form-control" id="senha" name="senha">
             </div>
             <div class="d-flex justify-content-center p-3">
-            <a href="login.php">Já possui cadastro? Clique Aqui para fazer login</a>
+                <a href="login.php">Já possui cadastro? Clique Aqui para fazer login</a>
             </div>
 
             <button id="btn-cadastrar" class="btn btn-primary">Cadastrar</button>
@@ -68,7 +68,6 @@
                     return false;
                 }
 
-
                 $.ajax({
                     type: 'POST',
                     url: 'ajaxCadastrarPessoa.php',
@@ -80,13 +79,23 @@
                     },
 
                     success: function(result) {
-                        $("#alert").html(result);
-                    },
-                });
+                        $('#alert').html(`
+                            ${spinner}
+                            
+    <p class="text-success">Carregando... Aguarde um momento.</p>`
+                        );
+                        if (result.includes("Usuário cadastrado com sucesso! Redirecionando...")) {
+                            setTimeout(function() {
+                                window.location.href = 'login.php';
+                            }, 2000);
+                        }
+                    }
+
+
+                })
             });
         });
     </script>
-
 
 
 </body>

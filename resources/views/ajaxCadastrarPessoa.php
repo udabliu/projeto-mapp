@@ -29,7 +29,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   
 
   if ($httpCode == 200) {
-    $msgSuccess = "Usuário cadastrado com sucesso!";
+    $msgSuccess = "Usuário cadastrado com sucesso! Redirecionando... ";
     
 ?>
     <div class="alert alert-success">
@@ -37,7 +37,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </div>
   <?php
   } else {
-    $msgError = "Erro ao Cadastrar";
+    $msgError = "Erro ao Cadastrar: O Email já está sendo utilizado.";
   ?>
     <div class="alert alert-danger">
       <?php print_r($msgError);

@@ -27,6 +27,13 @@ $router->delete('/pessoa/{id}/deletar', 'PessoaController@deletar');
 
 $router->put('/pessoa/{id}/editar', 'PessoaController@editar');
 
+$router->get('/pessoa/{id}/uma', 'PessoaController@mostrarUm');
+
+
+
+
+
+
 
 
 

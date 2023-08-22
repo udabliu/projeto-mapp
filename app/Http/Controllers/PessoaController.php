@@ -37,7 +37,7 @@ class PessoaController extends Controller
             $pessoa->telefone = $request->telefone;
 
             $pessoa->save();
-            return response()->json("Usuário Cadastrado com Sucesso");
+            return response()->json("Usuário Cadastrado com Sucesso!");
         }
     }
     //-------------------------------------------------------------------------------------------------------
@@ -45,6 +45,13 @@ class PessoaController extends Controller
     {
         $pessoas = Pessoa::all();
         return response()->json($pessoas);
+    }
+
+
+    public function mostrarUm($id)
+    {
+        $pessoa = Pessoa::find($id);
+        return response()->json($pessoa);
     }
 
     //-----------------------------------------------------------------------------------------------------------
@@ -55,24 +62,41 @@ class PessoaController extends Controller
         if ($pessoa) {
             $pessoa->delete();
 
-            return response()->json("deletado com sucesso", 200);
+            return response()->json("Usuário Apagado com Sucesso!");
         } else {
             return response()->json("Erro ao Deletar");
         }
     }
-//----------------------------------------------------------------------
+    //----------------------------------------------------------------------
     public function editar(Request $request, $id)
     {
-        $pessoa = Pessoa::find($id);
-        $pessoa->nome = $request->nome;
-        $pessoa->email = $request->email;
-        $pessoa->senha = $request->senha;
-        $pessoa->telefone = $request->telefone;
+        $validator = Validator::make($request->all(), [
+            'nome' => 'max:40',
+            'senha' => 'min:5'
+        ]);
+        if ($validator->fails()) {
+            return response()->json(['Erro de Validação dos dados' => $validator->errors()], 400);
+        } else {
 
-        $pessoa->save();
-        return response()->json("Dado(s) atualizado(s) com Sucesso" . $pessoa);
+
+            $pessoa = Pessoa::find($id);
+
+            if ($pessoa) {
+                if ($pessoa->id == $request->id) {
+                    $pessoa->nome = $request->nome;
+                    $pessoa->senha = $request->senha;
+                    $pessoa->telefone = $request->telefone;
+
+                    $pessoa->save();
+                    return response()->json("Dado(s) atualizado(s) com Sucesso" . $pessoa);
+                } else {
+                    return response()->json("Erro ao alterar dados: IDs não coincidem");
+                }
+            } else {
+                return response()->json("Erro ao alterar dados: Pessoa não encontrada");
+            }
+        }
     }
-}
-
+};
 
     //

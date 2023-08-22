@@ -8,17 +8,24 @@
     <div class="d-flex justify-content-center p-5">
         <h1>Lista de Usuários</h1>
     </div>
+    <div class="d-flex justify-content-center text-center">
+        <div class="p-3">
+            <a href="cadastro.php">Cadastro</a>
+        </div>
+        <div class="p-3">
+            <a href="login.php">Login</a>
+        </div>
+
+    </div>
 
     <div class="alert" id="mostrar" role="alert"></div>
 
 
     <script>
         $(document).ready(function() {
-            // Primeira chamada AJAX para mostrar dados
             $.ajax({
                 url: 'ajaxMostrarDados.php',
                 method: 'GET',
-                dataType: 'html', // Define o tipo de dados esperado (HTML)
                 success: function(result) {
                     $("#mostrar").html(result);
                 }

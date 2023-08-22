@@ -1,9 +1,5 @@
 <?php
 session_start();
-
-echo "Email:  " . $_SESSION["email"];
-echo "Senha: <br>" . $_SESSION["senha"];
-
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = $_POST['email'];
     $senha = $_POST['senha'];
@@ -35,7 +31,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($httpCode == 200) {
       $_SESSION["email"] = $email;
       $_SESSION["senha"] = $senha;
-      $msgSucess = "Usuário logado com sucesso!";
+      $msgSucess = "Usuário logado com sucesso! Redirecionando...";
       ?>
   <div class="alert alert-success">
     <?php print_r($msgSucess); ?>
@@ -52,4 +48,5 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
   }}
   ?>
+
   

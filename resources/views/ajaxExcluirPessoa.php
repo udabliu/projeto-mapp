@@ -1,5 +1,6 @@
 <?php
 $id = $_GET['pessoaId'];
+
 $curl = curl_init();
 
 curl_setopt_array($curl, array(
@@ -19,11 +20,16 @@ $httpCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
 curl_close($curl);
 
 if ($httpCode == 200) {
-  $msgSuccess = "Usuário deletado com sucesso!";
+  $msgSuccess = "Usuário deletado com sucesso! Redirecionando...";
 ?>
   <div class="alert alert-success">
     <?php print_r($msgSuccess); ?>
   </div>
+  <script>
+    setTimeout(function() {
+      window.location.href = 'logado.php';
+    }, 500);
+  </script>
 <?php
 } else {
   $msgError = "Erro ao Deletar";
@@ -34,5 +40,4 @@ if ($httpCode == 200) {
   </div>
 <?php
 }
-
 ?>
