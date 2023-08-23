@@ -44,30 +44,6 @@
                 var email = $('#email').val();
                 var telefone = $('#telefone').val();
                 var senha = $('#senha').val();
-
-                $('#alert').html(`<div class="spinner-border" role="status">
-  <span class="visually-hidden">Loading...</span>
-</div>`);
-
-                if (nome == '') {
-                    $('#alert').html('Preencha o campo Nome.');
-                    $('#alert').addClass("alert-danger");
-                    return false;
-                }
-
-                if (email == '') {
-                    $('#alert').html('Preencha o campo Email.');
-                    $('#alert').addClass("alert-danger");
-                    return false;
-                }
-
-
-                if (senha == '') {
-                    $('#alert').html('Preencha o campo Senha.');
-                    $('#alert').addClass("alert-danger");
-                    return false;
-                }
-
                 $.ajax({
                     type: 'POST',
                     url: 'ajaxCadastrarPessoa.php',
@@ -77,17 +53,14 @@
                         "telefone": telefone,
                         "senha": senha
                     },
-
                     success: function(result) {
                         $("#alert").html(result);
                         if (result.includes("Usuário cadastrado com sucesso! Redirecionando...")) {
                             setTimeout(function() {
                                 window.location.href = 'login.php';
-                            }, 2000);
+                            }, 1000);
                         }
                     }
-
-
                 })
             });
         });

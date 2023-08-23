@@ -19,7 +19,7 @@ class Pessoa extends Model implements AuthenticatableContract, AuthorizableContr
      * @var array
      */
     protected $fillable = [
-        'id','nome','email','telefone',
+        'id','nome','email','senha','telefone',
     ];
 
     /**
@@ -28,6 +28,6 @@ class Pessoa extends Model implements AuthenticatableContract, AuthorizableContr
      * @var array
      */
     protected $hidden = [
-        'senha'
+        
     ];
 }

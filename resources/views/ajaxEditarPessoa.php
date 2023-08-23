@@ -1,6 +1,7 @@
 <?php
 $id = $_POST['id'];
 $nome = $_POST['nome'];
+$email = $_POST['email'];
 $senha = $_POST['senha'];
 $telefone = $_POST['telefone'];
 
@@ -16,7 +17,7 @@ curl_setopt_array($curl, array(
   CURLOPT_FOLLOWLOCATION => true,
   CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
   CURLOPT_CUSTOMREQUEST => 'PUT',
-  CURLOPT_POSTFIELDS => "nome=$nome&senha=$senha&telefone=$telefone",
+  CURLOPT_POSTFIELDS => "nome=$nome&email=$email&senha=$senha&telefone=$telefone",
   CURLOPT_HTTPHEADER => array(
     'Content-Type: application/x-www-form-urlencoded'
   ),
@@ -28,7 +29,7 @@ $httpCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
 curl_close($curl);
 
 if ($httpCode == 200) {
-$msgSuccess = "Dados Alterados com Sucesso!"
+$msgSuccess = "Dados Alterados com Sucesso! Redirecionando..."
 ?>
   <div class="alert alert-success">
     <?php print_r($msgSuccess); ?>

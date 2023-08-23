@@ -20,42 +20,47 @@ $dados = json_decode($dadosJson, true); // Decodifica o JSON para um array assoc
 curl_close($curl);
 ?>
 
-<div class="form-control d-flex flex-column">
+<div class="form-control d-flex flex-column justify-content-center">
   <input type="hidden" name="pessoaId" id="id" value="<?php echo $id; ?>">
   <label for="">Nome</label>
   <input class="form-control" type="text" name="nome" id="nome" value="<?php echo $dados['nome']; ?>">
+  <label for="">Email</label>
+  <input class="form-control" type="text" name="email" id="email" value="<?php echo $dados['email']; ?>">
   <label for="">Senha</label>
-  <input class="form-control" type="password" name="senha" id="senha">
+  <input class="form-control" type="text" name="senha" id="senha" value="<?php echo $dados['senha']; ?>">
   <label for="">Telefone</label>
   <input class="form-control" type="number" name="telefone" id="telefone" value="<?php echo $dados['telefone']; ?>">
   <button class="btn btn-primary m-3" id="btn-atualizar">Atualizar</button>
+  <div id="result"></div>
 </div>
 <script>
-  
-  $('#btn-atualizar').click(function() {
-    var id = $('#id').val();
-    var nome = $('#nome').val();
-    var telefone = $('#telefone').val();
-    var senha = $('#senha').val();
+  $(document).ready(function() {
+    $('#btn-atualizar').click(function() {
+      var id = $('#id').val();
+      var nome = $('#nome').val();
+      var email = $('#email').val();
+      var telefone = $('#telefone').val();
+      var senha = $('#senha').val();
 
-    $.ajax({
-      type: 'POST',
-      url: 'ajaxEditarPessoa.php',
-      data: {
-        "id": id,
-        "nome": nome,
-        "telefone": telefone,
-        "senha": senha
-      },
-      success: function(result) {
-        $("#mostrar").html(result);
-
-        if (result.includes("Dados Alterados com Sucesso!")) {
-          setTimeout(function() {
-            window.location.href = 'logado.php';
-          }, 1000);
+      $.ajax({
+        type: 'POST',
+        url: 'ajaxEditarPessoa.php',
+        data: {
+          "id": id,
+          "nome": nome,
+          "email": email,
+          "telefone": telefone,
+          "senha": senha
+        },
+        success: function(result) {
+          $("#result").html(result);
+          if (result.includes("Dados Alterados com Sucesso! Redirecionando...")) {
+            setTimeout(function() {
+              window.location.href = 'logado.php';
+            }, 1000);
+          }
         }
-      }
+      })
     })
   });
 </script>

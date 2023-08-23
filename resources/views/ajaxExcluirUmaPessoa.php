@@ -19,25 +19,51 @@ $dados = json_decode($dadosJson, true); // Decodifica o JSON para um array assoc
 
 curl_close($curl);
 
+if ($dados) {
 ?>
+  <div>
+    <label>Tem certeza que deseja excluir?</label>
+    <button class="btn-sim btn btn-success" data-id="<?php echo $dados["id"]; ?>">Sim</button>
+    <button class="btn-nao btn btn-danger" data-id="<?php echo $dados["id"]; ?>">Não</button>
+  </div>
 
-<div>
-<input type="hidden" name="pessoaId" id="id" value="<?php echo $dados["id"]; ?>">
-<label>Tem certeza que deseja excluir?</label>
-  <button id="btn-sim">sim</button>
-  <button id="nao">nao</button>
-</div>
+<?php
+}
+?>
+<script>
+  $(document).ready(function() {
+    $('.btn-sim').on('click', function() {
+      var pessoaId = $(this).data('id');
+      $.ajax({
+        url: 'ajaxExcluirPessoa.php?pessoaId=' + pessoaId,
+        type: 'DELETE',
+        success: function(result) {
+          $("#mostrar").html(result);
+          setTimeout(function() {
+            location.reload();
+          }, 1000);
+        }
+      });
+    });
+  });
+</script>
 
 <script>
-  $('#btn-sim').click(function() {
-    var pessoaId = $('#id').val(); 
-  })
-  $.ajax({
-        url: 'ajaxExcluirPessoa.php?pessoaId=' + pessoaId,
-        type: 'GET',
-        success: function(result) {
-          $("#sure").html(result);
-
+  $(document).ready(function() {
+    $('.btn-nao').on('click', function() {
+      var pessoaId = $(this).data('id');
+      var sureDiv = $('#sure-' + pessoaId);
+      if (sureDiv.is(':visible')) {
+        sureDiv.hide();
+      } else {
+        $.ajax({
+          url: 'ajaxExcluirUmaPessoa.php?pessoaId=' + pessoaId,
+          type: 'GET',
+          success: function(result) {
+            sureDiv.html(result).show();
+          }
+        });
       }
-  })
+    });
+  });
 </script>

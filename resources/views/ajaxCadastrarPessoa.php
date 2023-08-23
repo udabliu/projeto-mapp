@@ -5,45 +5,46 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   $senha = $_POST['senha'];
   $telefone = $_POST['telefone'];
 
-  $curl = curl_init();
+  $valida = true;
+  if ($nome == '') {
+    $valida = false;
+    echo 'Favor informar nome';
+  }
 
-  curl_setopt_array($curl, array(
-    CURLOPT_URL => 'http://localhost:8001/pessoa/cadastrar',
-    CURLOPT_RETURNTRANSFER => true,
-    CURLOPT_ENCODING => '',
-    CURLOPT_MAXREDIRS => 10,
-    CURLOPT_TIMEOUT => 0,
-    CURLOPT_FOLLOWLOCATION => true,
-    CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-    CURLOPT_CUSTOMREQUEST => 'POST',
-    CURLOPT_POSTFIELDS => "nome=$nome&email=$email&senha=$senha&telefone=$telefone",
-    CURLOPT_HTTPHEADER => array(
-      'Content-Type: application/x-www-form-urlencoded'
-    ),
-  ));
+  $valida = true;
+  if ($email == '') {
+    $valida = false;
+    echo 'Favor informar email';
+  }
 
-  $response = curl_exec($curl);
-  $httpCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+  $valida = true;
+  if ($senha == '') {
+    $valida = false;
+    echo 'Favor informar senha';
+  }
 
-  curl_close($curl);
-  
+  if ($valida) {
+    $curl = curl_init();
+    curl_setopt_array($curl, array(
+      CURLOPT_URL => 'http://localhost:8001/pessoa/cadastrar',
+      CURLOPT_RETURNTRANSFER => true,
+      CURLOPT_ENCODING => '',
+      CURLOPT_MAXREDIRS => 10,
+      CURLOPT_TIMEOUT => 0,
+      CURLOPT_FOLLOWLOCATION => true,
+      CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+      CURLOPT_CUSTOMREQUEST => 'POST',
+      CURLOPT_POSTFIELDS => "nome=$nome&email=$email&senha=$senha&telefone=$telefone",
+      CURLOPT_HTTPHEADER => array(
+        'Content-Type: application/x-www-form-urlencoded'
+      ),
+    ));
 
-  if ($httpCode == 200) {
-    $msgSuccess = "Usuário cadastrado com sucesso! Redirecionando... ";
-    
-?>
-    <div class="alert alert-success">
-      <?php print_r($msgSuccess);?>
-    </div>
-  <?php
-  } else {
-    $msgError = "Erro ao Cadastrar: O Email já está sendo utilizado.";
-  ?>
-    <div class="alert alert-danger">
-      <?php print_r($msgError);
-      ?>
-    </div>
-<?php
+    $dadosJson = curl_exec($curl);
+    $httpCode = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+    $dados = json_decode($dadosJson, true);
+    curl_close($curl);
+    print_r($dados);
   }
 }
-?>
+

@@ -22,20 +22,18 @@ class PessoaController extends Controller
     public function cadastrarPessoa(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'nome' => 'required|max:40',
             'email' => 'required|email|unique:pessoas,email',
-            'senha' => 'required|min:5'
         ]);
 
         if ($validator->fails()) {
-            return response()->json(['Erro de Validação dos dados' => $validator->errors()], 400);
+            return response()->json(["Este Email Já foi Cadastrado"],
+        );
         } else {
             $pessoa = new Pessoa;
             $pessoa->nome = $request->nome;
             $pessoa->email = $request->email;
             $pessoa->senha = $request->senha;
             $pessoa->telefone = $request->telefone;
-
             $pessoa->save();
             return response()->json("Usuário Cadastrado com Sucesso!");
         }
@@ -72,7 +70,8 @@ class PessoaController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'nome' => 'max:40',
-            'senha' => 'min:5'
+            'senha' => 'required|min:5',
+            'telefone' => 'min:11'
         ]);
         if ($validator->fails()) {
             return response()->json(['Erro de Validação dos dados' => $validator->errors()], 400);

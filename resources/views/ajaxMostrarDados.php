@@ -31,72 +31,52 @@ if ($httpCode == 200) {
         <li class="list-group-item d-flex justify-content-center"><?php print_r($pessoa["nome"]); ?></li>
         <li class="list-group-item d-flex justify-content-center"><?php print_r($pessoa["email"]); ?></li>
         <li class="list-group-item d-flex justify-content-around">
-          <button id="btn-delete" class="btn btn-danger" data-id="<?php echo $pessoa["id"]; ?>">Deletar</button>
-          <div id="sure"></div>
-          <button id="btn-edit" class="btn btn-warning" data-id="<?php echo $pessoa["id"]; ?>">Editar</button>
+          <button class="btn btn-danger btn-delete" data-id="<?php echo $pessoa["id"]; ?>">Deletar</button>
+          <div class="edit-delete" id="sure-<?php echo $pessoa["id"]; ?>"></div>
+          <button class="btn btn-warning btn-edit" data-id="<?php echo $pessoa["id"]; ?>">Editar</button>
         </li>
+        <div class="edit" id="edit-sure-<?php echo $pessoa["id"]; ?>"></div>
   </div>
   </ul>
 <?php endforeach; ?>
 </div>
-
-
 <script>
-  $(document).ready(function() {
-    $('#btn-enviar').click(function() {
-      var nome = $('#nome').val();
-      var email = $('#email').val();
-      var telefone = $('#telefone').val();
-      var senha = $('#senha').val();
-
-      $.ajax({
-        type: 'POST',
-        url: 'ajaxEditarPessoa.php',
-        data: {
-          "nome": nome,
-          "email": email,
-          "telefone": telefone,
-          "senha": senha
-        },
-
-        success: function(result) {
-          $("#alert").html(result);
-        },
-      });
+$(document).ready(function() {
+  $('.btn-delete').on('click', function() {
+    var pessoaId = $(this).data('id');
+    $('.edit-delete').hide();
+    var sureDiv = $('#sure-' + pessoaId);
+    $.ajax({
+      url: 'ajaxExcluirUmaPessoa.php?pessoaId=' + pessoaId,
+      type: 'GET',
+      success: function(result) {
+        sureDiv.html(result).show();
+      }
     });
   });
-</script>
-
-
-<script>
-   $(document).ready(function() {
-    $('#btn-delete').on('click', function() {
-      var pessoaId = $(this).data('id');
-      $.ajax({
-        url: 'ajaxExcluirUmaPessoa.php?pessoaId=' + pessoaId,
-        type: 'GET',
-        success: function(result) {
-          $("#sure").html(result);
-        }
-      })
-    })
-  });
+});
 
 </script>
 
 <script>
-  $(document).ready(function() {
-    $('#btn-edit').on('click', function() {
+ $(document).ready(function() {
+    $('.btn-edit').on('click', function() {
       var pessoaId = $(this).data('id');
-      $.ajax({
-        url: 'ajaxObterDadosPessoa.php?pessoaId=' + pessoaId,
-        type: 'GET',
-        success: function(result) {
-          $("#mostrar").html(result);
-        }
-      })
+      $('.edit').hide();
+      var sureDiv = $('#edit-sure-' + pessoaId);
+      if (sureDiv.is(':visible')) {
+        sureDiv.hide();
+      } else {
+        $.ajax({
+          url: 'ajaxObterDadosPessoa.php?pessoaId=' + pessoaId,
+          type: 'GET',
+          success: function(result) {
+            sureDiv.html(result).show();
+          }
+        });
+      }
     });
-  })
+  });
 </script>
 <?php
 } else {

@@ -18,12 +18,11 @@
         <div class="p-3">
             <a class="btn btn-primary" href="logado.php">Home</a>
         </div>
-
     </div>
-
+    
     <div class="alert" id="mostrar" role="alert"></div>
 
-
+    
     <script>
         $(document).ready(function() {
             $.ajax({
