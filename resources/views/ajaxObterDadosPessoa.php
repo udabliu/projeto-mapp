@@ -31,6 +31,7 @@ curl_close($curl);
   <button class="btn btn-primary m-3" id="btn-atualizar">Atualizar</button>
 </div>
 <script>
+  
   $('#btn-atualizar').click(function() {
     var id = $('#id').val();
     var nome = $('#nome').val();

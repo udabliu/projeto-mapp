@@ -31,8 +31,9 @@ if ($httpCode == 200) {
         <li class="list-group-item d-flex justify-content-center"><?php print_r($pessoa["nome"]); ?></li>
         <li class="list-group-item d-flex justify-content-center"><?php print_r($pessoa["email"]); ?></li>
         <li class="list-group-item d-flex justify-content-around">
-          <button class="btn-delete btn btn-danger" data-id="<?php echo $pessoa["id"]; ?>">Deletar</button>
-          <button class="btn-edit btn btn-warning" data-id="<?php echo $pessoa["id"]; ?>">Editar</button>
+          <button id="btn-delete" class="btn btn-danger" data-id="<?php echo $pessoa["id"]; ?>">Deletar</button>
+          <div id="sure"></div>
+          <button id="btn-edit" class="btn btn-warning" data-id="<?php echo $pessoa["id"]; ?>">Editar</button>
         </li>
   </div>
   </ul>
@@ -66,27 +67,26 @@ if ($httpCode == 200) {
   });
 </script>
 
+
 <script>
-  $(document).ready(function() {
-    $('.btn-delete').on('click', function() {
+   $(document).ready(function() {
+    $('#btn-delete').on('click', function() {
       var pessoaId = $(this).data('id');
-      var confirmDelete = confirm("Tem certeza que deseja deletar este Usuário?");
-      if (confirmDelete) {
-        $.ajax({
-          url: 'ajaxExcluirPessoa.php?pessoaId=' + pessoaId,
-          type: 'DELETE',
-          success: function(result) {
-            $("#mostrar").html(result);
-          }
-        })
-      };
+      $.ajax({
+        url: 'ajaxExcluirUmaPessoa.php?pessoaId=' + pessoaId,
+        type: 'GET',
+        success: function(result) {
+          $("#sure").html(result);
+        }
+      })
     })
-  })
+  });
+
 </script>
 
 <script>
   $(document).ready(function() {
-    $('.btn-edit').on('click', function() {
+    $('#btn-edit').on('click', function() {
       var pessoaId = $(this).data('id');
       $.ajax({
         url: 'ajaxObterDadosPessoa.php?pessoaId=' + pessoaId,

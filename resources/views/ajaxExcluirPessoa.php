@@ -4,7 +4,7 @@ $id = $_GET['pessoaId'];
 $curl = curl_init();
 
 curl_setopt_array($curl, array(
-  CURLOPT_URL => "localhost:8001/pessoa/$id/deletar",
+  CURLOPT_URL => "http://localhost:8001/pessoa/$id/deletar",
   CURLOPT_RETURNTRANSFER => true,
   CURLOPT_ENCODING => '',
   CURLOPT_MAXREDIRS => 10,
@@ -21,23 +21,10 @@ curl_close($curl);
 
 if ($httpCode == 200) {
   $msgSuccess = "Usuário deletado com sucesso! Redirecionando...";
-?>
-  <div class="alert alert-success">
-    <?php print_r($msgSuccess); ?>
-  </div>
-  <script>
-    setTimeout(function() {
-      window.location.href = 'logado.php';
-    }, 500);
-  </script>
-<?php
+  echo $msgSuccess; 
+ 
 } else {
   $msgError = "Erro ao Deletar";
-?>
-  <div class="alert alert-danger">
-    <?php print_r($msgError);
-    ?>
-  </div>
-<?php
+  echo $msgError; 
 }
 ?>
